@@ -1,6 +1,7 @@
 """Application schemas."""
-from pydantic import BaseModel
 from typing import List
+
+from pydantic import BaseModel
 
 
 class Route(BaseModel):
