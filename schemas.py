@@ -28,7 +28,7 @@ class Cim(BaseModel):
     id: int
     uuid: str
     name: str
-    region: str
+    comarca: str
     lat: float
     lng: float
     alt: int

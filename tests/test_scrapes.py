@@ -60,10 +60,14 @@ def test_complementary_info():
         "https://www.feec.cat/activitats/100-cims/cim/la-mola/"
     )
     assert isinstance(cim_info, dict)
+    cim_info["uuid"] = "e96c8b97f6ff4766ab7dd996843cb226"
     expected = {
-        "comarca": "Baix Penedès, Tarragonès",
-        "altitude": 317,
+        "uuid": "e96c8b97f6ff4766ab7dd996843cb226",
+        "region": "Baix Penedès, Tarragonès",
+        "alt": 317,
         "img_url": "https://www.feec.cat/wp-content/uploads/2019/04/La-Mola-Bonastre-scaled.jpg",
+        "essential": False,
+        "routes": [],
     }
     assert cim_info == expected
 
@@ -95,22 +99,36 @@ def test_merge_information():
         "lat": 41.4290355033,
         "lang": 1.30575794888,
         "url": "https://www.feec.cat/activitats/100-cims/cim/el-cogullo-de-cabra/",
-        "comarca": "Alt Camp",
+        "uuid": "73d99e98e43d427ab6d66471d379c0ab",
+        "region": "Alt Camp",
         "alt": 881,
         "img_url": "https://www.feec.cat/wp-content/uploads/2019/04/El-Cogulló-de-Cabra-scaled.jpg",
+        "essential": True,
+        "routes": [],
     }
 
     test_essential = test_cims
-    test_repte = test_cims
 
-    all_cims = {"essential": test_essential, "repte": test_repte}
+    all_cims = {"essential": test_essential, "repte": ""}
 
-    essential = [cim for cim in merge_information(all_cims["essential"])]
-    repte = [cim for cim in merge_information(all_cims["repte"])]
+    essential = [cim for cim in merge_information(all_cims["essential"], essential=True)]
 
-    cims_list = {"essential": essential, "repte": repte}
+    cims_list = {"essential": essential, "repte": ""}
 
-    cim_params = ["nombre", "lat", "lang", "url", "comarca", "alt", "img_url"]
+    cim_params = [
+        "nombre",
+        "lat",
+        "lang",
+        "url",
+        "uuid",
+        "region",
+        "alt",
+        "img_url",
+        "essential",
+        "routes",
+    ]
+    _mock_cim = cims_list["essential"][0]
+    _mock_cim["uuid"] = "73d99e98e43d427ab6d66471d379c0ab"
     assert list(cims_list.keys()) == ["essential", "repte"]
     assert list(cims_list["essential"][0].keys()) == cim_params
-    assert cims_list["essential"][0] == test_complete_cim_info
+    assert _mock_cim == test_complete_cim_info

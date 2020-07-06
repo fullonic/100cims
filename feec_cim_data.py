@@ -3,10 +3,16 @@ from typing import Dict, Union, List
 import requests
 import bs4
 import json
-
+from uuid import uuid4
+from schemas import Cim
 
 ESSENTIAL_PATTERN = r"var cims_essencials = \[(.*?)\]"
 REPTE_PATTERN = r"var cims_repte = \[(.*?)\]"
+
+
+def _get_uuid() -> str:
+    """Generate a hex uuid4 str."""
+    return uuid4().hex
 
 
 def tuples_from_list(lst):
@@ -102,7 +108,11 @@ def _get_coordinates(cim_info_tag: bs4.Tag) -> tuple:
 
 
 def complementary_info(url=None):
-    """Scrape cim detailed information from cim page."""
+    """Scrape cim detailed information from cim page.
+
+    We get the url and visit each page to take extra information about each cim.
+    Also we add the id, the UUID,
+    """
     if url.startswith("https"):
         page = requests.get(url).text
     else:
@@ -112,28 +122,37 @@ def complementary_info(url=None):
 
     soup: bs4.BeautifulSoup = bs4.BeautifulSoup(page, features="html.parser")
     cim_info_tag: bs4.Tag = soup.select("div.bg-primari:nth-child(3)")[0]
-    # comarca info
-    comarca: str = cim_info_tag.select("div.fw-bold:nth-child(2)")[0].text
-    comarca = comarca.strip()
+    # region info
+    region: str = cim_info_tag.select("div.fw-bold:nth-child(2)")[0].text
+    region = region.strip()
     # altitude
     alt: str = cim_info_tag.select("div.fw-bold:nth-child(4)")[0].text
     altitude: int = int(alt[:-2])
     # img
     img_tag = soup.select(".attachment-post-thumbnail")[0]
     img_url = img_tag.attrs["src"]
-    return {"comarca": comarca, "alt": altitude, "img_url": img_url}
+    uuid = _get_uuid()
+    return {
+        "uuid": uuid,
+        "region": region,
+        "alt": altitude,
+        "img_url": img_url,
+        "essential": False,
+        "routes": [],
+    }
 
 
 #########################
 # Merge complementary data with basic info
 #########################
-
-
-def merge_information(cims_list: List[dict]):
+def merge_information(cims_list: List[dict], essential=False):
+    """Build final cim information."""
     # new_list = []
     for cim in cims_list:
         extra_info = complementary_info(cim["url"])
         cim.update(extra_info)
+        if essential:
+            cim["essential"] = True
         yield cim
     # return new_list
 
@@ -142,7 +161,9 @@ def create_cims_list(save: bool = False) -> Dict[str, list]:
     """Most top level cims scrape interface."""
     cims_basic_info: Dict[str, list] = get_cims_basic_information()
     cims = {
-        "essential": [cim for cim in merge_information(cims_basic_info["essential"])],
+        "essential": [
+            cim for cim in merge_information(cims_basic_info["essential"], True)
+        ],
         "repte": [cim for cim in merge_information(cims_basic_info["repte"])],
     }
     if save:
