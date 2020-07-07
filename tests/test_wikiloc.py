@@ -1,6 +1,5 @@
 import pytest
-
-from wikiloc_cim_data import (
+from server.data_collector.utils import (
     select_routes_from_list,
     get_cims_list,
     _filter_by_html_tag,

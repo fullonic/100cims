@@ -2,7 +2,7 @@ import json
 
 import pytest
 import bs4
-from feec_cim_data import (
+from server.data_collector.feec import (
     cims,
     get_essential_cim_list,
     list_to_dict,

@@ -1,5 +1,11 @@
 import pytest
-from feec_cim_data import get_cims_basic_information, create_cims_list
+from server.data_collector.feec import (
+    get_cims_basic_information,
+    create_cims_list,
+    CimsList,
+)
+from server.tasks import wikiloc_collect
+from server.data_collector.utils import setup_browser
 
 
 @pytest.mark.skip
@@ -27,3 +33,11 @@ def test_create_cims_list():
     all_cims = create_cims_list(True)
     assert list(all_cims.keys()) == ["essential", "repte"]
     assert list(all_cims["essential"][0].keys()) == cim_params
+
+
+@pytest.mark.skip
+def test_wikiloc_collect():
+    cims_list = CimsList.get_all()[:3]
+    url = "https://es.wikiloc.com/"
+    driver = setup_browser(headless=True)
+    wikiloc_collect(driver, url, cims_list)

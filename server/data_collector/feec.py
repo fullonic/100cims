@@ -1,10 +1,11 @@
 import re
+from pathlib import Path
 from typing import Dict, Union, List
 import requests
 import bs4
 import json
 from uuid import uuid4
-from schemas import Cim
+from server.schemas import Cim
 
 ESSENTIAL_PATTERN = r"var cims_essencials = \[(.*?)\]"
 REPTE_PATTERN = r"var cims_repte = \[(.*?)\]"
@@ -177,6 +178,7 @@ class CimsList:
     @staticmethod
     def get_all() -> list:
         """Return all cims from database."""
-        with open("cims.json") as f:
+        cims_db = Path(__file__).parent / "cims.json"
+        with open(cims_db) as f:
             cims = json.load(f)
         return [*cims["essential"], *cims["repte"]]

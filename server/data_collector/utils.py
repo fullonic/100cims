@@ -12,8 +12,8 @@ from selenium.common.exceptions import (
 from selenium.webdriver.firefox.options import Options
 from fake_useragent import UserAgent
 
-from schemas import Cim
-from feec_cim_data import CimsList
+from server.schemas import Cim
+from server.data_collector.feec import CimsList
 
 #########################
 # Configurations
@@ -44,6 +44,10 @@ def accept_cookie(driver: webdriver) -> None:
         btn.click()
     except NoSuchElementException:
         pass
+
+
+def get_cims_list():
+    return CimsList.get_all()
 
 
 #########################
@@ -88,7 +92,7 @@ def select_routes_from_list(routes_list: bs4.Tag):
     ]
 
 
-def setup_browser():
+def setup_browser(headless: bool = False):
     """Set up browser driver before start navigation.
 
     TODO:
@@ -101,7 +105,8 @@ def setup_browser():
     profile = webdriver.FirefoxProfile()
     profile.set_preference("general.useragent.override", user_agent.random)
     opts = Options()
-    # opts.headless = True
+    if headless:
+        opts.headless = True
     driver: webdriver = webdriver.Firefox(firefox_profile=profile, options=opts)
     return driver
 
@@ -124,27 +129,3 @@ def _collect_wikiloc_data(driver, cims_list):
         cim["routes"] = get_cim_routes_list(cim["uuid"], page, ROUTES_TAG)
         # breakpoint()
         cim["url_search"] = driver.current_url
-
-
-@dataclass
-class WikiLoc:
-    """Wikiloc data collector."""
-    url: str
-
-    def collect(self, driver: webdriver, cims_list: List):
-        """Run collector script by order."""
-        driver.get(self.url)
-        accept_cookie(driver)
-        return _collect_wikiloc_data(driver, cims_list)
-
-def get_cims_list():
-    """Get all CIMs from storage."""
-    return CimsList.get_all()
-
-
-if __name__ == "__main__":
-    driver = setup_browser()
-    cims_lst = CimsList.get_all()[:3]
-    cim_url = "https://es.wikiloc.com/"
-    wikiloc = WikiLoc(cim_url)
-    wikiloc.collect(driver, cims_lst)
