@@ -1,0 +1,167 @@
+{
+  "routes": [
+    { "046ec4396e034294bd241a11470b0391": { "trekking": [] } },
+    {
+      "ef86877016f94a97bb2b90f955437998": {
+        "trekking": [
+          "/rutas-senderismo/gran-pic-del-pesso-2894m-51995762",
+          "/rutas-senderismo/gran-pic-del-pesso-els-100-cims-42677763",
+          "/rutas-senderismo/gran-pic-del-pesso-5251092"
+        ]
+      }
+    },
+    {
+      "3a9f7de5a4dd481ba5001a40303f1ddf": {
+        "trekking": [
+          "/rutas-senderismo/zion-canyon-emerald-pools-angels-landing-12078067",
+          "/rutas-senderismo/vuelta-por-zion-casi-angels-landing-y-emerald-pools-8225317",
+          "/rutas-senderismo/barranc-de-la-fou-pi-gros-barranc-del-retaule-faig-pare-lo-teixet-cova-dels-angels-8305364",
+          "/rutas-senderismo/montigalar-100-cims-y-els-angels-100-cims-31262962",
+          "/rutas-senderismo/sant-marti-vell-santuari-dels-angels-100-cims-36596931",
+          "/rutas-senderismo/62-appalachian-trail-virginia-seccion-28-1-y-27-3-de-lamberts-meadow-shelter-a-angels-gap-hay-rock-12574423",
+          "/rutas-senderismo/area-de-la-fou-casa-ingeniero-cova-dels-angels-pla-de-valldebous-teixet-faig-pare-barranc-del-retau-9093613",
+          "/rutas-senderismo/sant-mateu-moli-vell-ermita-de-sant-cristofol-y-mare-de-deu-dels-angels-20472155",
+          "/rutas-senderismo/100-cims-els-angels-i-el-montigalar-45753054",
+          "/rutas-senderismo/la-salzadella-ermita-dels-angels-sant-cristofol-18055491"
+        ]
+      }
+    },
+    {
+      "0f0846d30672431784b2e184291e29b0": {
+        "trekking": [
+          "/rutas-senderismo/estanys-dengorgs-y-la-carabassa-15282405",
+          "/rutas-senderismo/pratdip-crestas-de-la-seda-mont-redon-cavall-bernat-font-de-la-carabassa-pratdip-8069212",
+          "/rutas-senderismo/la-carabassa-o-carbassa-100-cims-feec-ibp-125-hkg-09-09-2019-41109942",
+          "/rutas-senderismo/pratdip-mont-redon-por-las-crestas-de-la-seda-cavall-bernat-font-de-la-carabassa-2743034",
+          "/rutas-senderismo/gandesa-pic-de-la-mort-pic-de-laliga-vall-carabassa-cavalls-punta-redona-pandols-col-torner-2613918",
+          "/rutas-senderismo/la-carabassa-circular-26450884",
+          "/rutas-senderismo/la-carabassa-100-cims-42501510",
+          "/rutas-senderismo/priorat-coll-desplugues-cami-baix-gritella-grau-del-julivert-coll-carabassa-pla-bassots-grau-covass-19684766",
+          "/rutas-senderismo/la-carabassa-cerdanya-2-740mts-40874784",
+          "/rutas-senderismo/pratdip-cresta-de-la-seda-mon-redom-cavall-bernat-font-de-la-carabassa-xavi-25196887"
+        ]
+      }
+    },
+    {
+      "e906d2b047f64cc09d7112bc86cfa0a3": {
+        "trekking": [
+          "/rutas-senderismo/sant-llorenc-de-la-muga-pantano-de-boadella-13583457",
+          "/rutas-senderismo/pena-alta-de-losa-1-022m-mostajo-945m-pocilla-918m-circular-desde-el-alto-de-la-horca-muga-entre-bu-45368294",
+          "/rutas-senderismo/cerdanya-refugi-de-cap-de-rec-estanys-de-la-muga-tossa-plana-de-lles2905mclot-de-lorri-pla-de-les-s-7944067",
+          "/rutas-senderismo/circular-por-el-monte-santiago-muga-entre-alava-y-burgos-16509334",
+          "/rutas-senderismo/tossa-plana-de-lles-la-muga-100-cims-2feec-1-icgc-ibp-147-hkg-06-07-2018-26421027",
+          "/rutas-senderismo/poyales-muga-la-rioja-castilla-leon-poyales-8450268",
+          "/rutas-senderismo/circular-la-lece-olano-olano-txiki-arabarren-iru-muga-dolmen-arrobigana-albeniz-atxipi-artzanegi-si-34174801"
+        ]
+      }
+    },
+    {
+      "2a850f11239b4890a9568b8812f0cc9c": {
+        "trekking": [
+          "/rutas-senderismo/refugi-ventosa-punta-alta-de-comalesbienes-pic-de-la-pala-alta-de-sarrade-barranc-de-comalesbienes-7669942",
+          "/rutas-senderismo/montsent-de-pallars-montorroio-pala-pedregosa-y-pic-de-mainera-desde-embalse-de-sallente-4981120",
+          "/rutas-senderismo/pala-alta-de-sarrade-des-daiguestortes-estany-llebreta-13767921",
+          "/rutas-senderismo/vilanova-de-la-sal-ermita-de-montalegre-mont-roig-pala-alta-ref-pletiu-de-lextrem-cova-del-tabac-5610296",
+          "/rutas-senderismo/circo-de-troumouse-puerto-de-la-canal-o-port-de-la-canau-pico-de-la-pala-o-pic-de-bouneu-lacs-des-a-28620268",
+          "/rutas-senderismo/ransol-serrera-coma-de-senyac-pic-de-lestany-mort-mil-menut-bony-de-la-pala-de-jan-ransol-7506370",
+          "/rutas-senderismo/pala-alta-de-sarrade-100-cim-40472042",
+          "/rutas-senderismo/pic-de-coma-de-varilles-pic-de-ransol-pic-de-la-pala-de-jan-15358475",
+          "/rutas-senderismo/vall-de-nuria-torreneules-cim-de-la-coma-del-clot-puig-de-fontnegra-pic-de-la-pala-pic-de-laliga-26043307",
+          "/rutas-senderismo/pala-alta-100-cims-feec-ibp-35-hkg-13-06-2019-37592116"
+        ]
+      }
+    },
+    {
+      "61d1a9eedd5a4fa1a842f89b7fe74c1c": {
+        "trekking": [
+          "/rutas-senderismo/maresme-al-montalt-desde-sant-vicenc-16190318",
+          "/rutas-senderismo/100-cims-montalt-5182856",
+          "/rutas-senderismo/arenys-de-munt-montalt-100-cims-santuari-mare-de-deu-de-lourdes-35682346",
+          "/rutas-senderismo/montalt-100-cims-fecc-ibp-47-hkg-31-05-2018-25385998",
+          "/rutas-senderismo/capcanes-mas-collet-gr-7-cova-de-les-dos-boques-canal-del-plom-montalt-punta-nort-montalt-punta-sud-20023764",
+          "/rutas-senderismo/rocs-moro-rocas-turo-de-loriola-roca-de-lou-el-montalt-mare-deu-torrents-80-sendero-32232564",
+          "/rutas-senderismo/vallgorguina-cim-del-montalt-18098802",
+          "/rutas-senderismo/sant-andreu-de-llavaneres-montalt-sant-andreu-de-llavaneres-22561618",
+          "/rutas-senderismo/rifugio-staulanza-cime-di-coldai-rifugio-tissi-montalt-di-pelsa-rifugio-vazzoler-51229660",
+          "/rutas-senderismo/santuari-del-corredor-creu-de-rupit-cim-del-montalt-can-cintet-ruines-de-can-jaume-alzina-5608281"
+        ]
+      }
+    },
+    {
+      "adc566f2778f47e7a7a5dc9c81024286": {
+        "trekking": [
+          "/rutas-senderismo/els-bessons-100-cims-27141995",
+          "/rutas-senderismo/mirador-serra-del-rispa-cabana-de-volta-els-bessons-tossal-del-xivete-punta-dels-marquessos-tossal-47051598",
+          "/rutas-senderismo/sentier-de-limbut-gorges-du-verdon-40186983",
+          "/rutas-senderismo/els-bessons-100-cims-feec-ibp-21-hkg-30-10-2019-43046752",
+          "/rutas-senderismo/els-bessons-100-cims-24646511",
+          "/rutas-senderismo/els-bessons-100-cims-esencials-34210097",
+          "/rutas-senderismo/borges-blanques-mas-del-pepe-cim-dels-bessons-4071605",
+          "/rutas-senderismo/180317-100-cims-les-garrigues-els-bessons-23304511",
+          "/rutas-senderismo/2018-07-02-cacs-meneur-denis-aiguines-sentier-des-cavaliers-de-limbut-et-sortie-vidal-26267588",
+          "/rutas-senderismo/verdon-gorges-25482760"
+        ]
+      }
+    },
+    {
+      "196bd299705942f4b02bc5081c25ea69": {
+        "trekking": [
+          "/rutas-senderismo/besiberri-nord-28-08-2010-1162500",
+          "/rutas-senderismo/besiberri-nord-3-008-m-des-de-panta-de-cavallers-vall-de-boi-p-n-daiguestortes-1250m-3947145",
+          "/rutas-senderismo/refugi-joan-ventosa-i-calvell-estany-gelat-collet-dels-isards-besiberri-nord-estanyet-de-malavesina-5208764",
+          "/rutas-senderismo/cresta-besiberri-nord-besiberris-del-mig-41969671",
+          "/rutas-senderismo/gires-estany-cavallers-besiberri-nord-26390937",
+          "/rutas-senderismo/besiberri-nord-pel-refugi-ventosa-i-clavell-part-2-2-38994159"
+        ]
+      }
+    },
+    {
+      "26279af175ce44c2b2aa0ca7313a18b8": {
+        "trekking": [
+          "/rutas-senderismo/la-faiada-o-faiada-de-malpas-100-cims-feec-ibp-62-hkg-18-02-2020-46895466",
+          "/rutas-senderismo/cap-de-la-faiada-2012-06-10-3006984",
+          "/rutas-senderismo/ascension-a-la-faiada-de-malpas-1699m-100-cims-35456543",
+          "/rutas-senderismo/la-faiada-50981812",
+          "/rutas-senderismo/coll-de-la-faiada-del-malpas-cap-de-la-faiada-del-malpas-4679063",
+          "/rutas-senderismo/faiada-de-malpas-montiberri-50830142",
+          "/rutas-senderismo/la-faiada-100-cims-24221315",
+          "/rutas-senderismo/147-la-faiada-de-malpas-per-montiberri-100-cims-feec-21258709",
+          "/rutas-senderismo/100-cims-cap-de-la-faiada-31030893",
+          "/rutas-senderismo/aparcament-n-260-pont-de-suert-panta-descales-montiberri-cap-de-la-faiada-de-malpas-14279315"
+        ]
+      }
+    }
+  ],
+  "search_urls": [
+    {
+      "046ec4396e034294bd241a11470b0391": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.999%2C-179.999&ne=89.999%2C179.999&q=Punta%20dHarl%C3%A9&fitMapToTrails=1&page=1"
+    },
+    {
+      "ef86877016f94a97bb2b90f955437998": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=Gran%20Pic%20del%20Pess%C3%B3&fitMapToTrails=1&page=1"
+    },
+    {
+      "3a9f7de5a4dd481ba5001a40303f1ddf": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=Els%20%C3%80ngels&fitMapToTrails=1&page=1"
+    },
+    {
+      "0f0846d30672431784b2e184291e29b0": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=La%20Carabassa&fitMapToTrails=1&page=1"
+    },
+    {
+      "e906d2b047f64cc09d7112bc86cfa0a3": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=La%20Muga&fitMapToTrails=1&page=1"
+    },
+    {
+      "2a850f11239b4890a9568b8812f0cc9c": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=Pic%20de%20la%20Pala%20Alta%20de%20Sarrad%C3%A9&fitMapToTrails=1&page=1"
+    },
+    {
+      "61d1a9eedd5a4fa1a842f89b7fe74c1c": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=Montalt&fitMapToTrails=1&page=1"
+    },
+    {
+      "adc566f2778f47e7a7a5dc9c81024286": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=Els%20Bessons&fitMapToTrails=1&page=1"
+    },
+    {
+      "196bd299705942f4b02bc5081c25ea69": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=Besiberri%20Nord&fitMapToTrails=1&page=1"
+    },
+    {
+      "26279af175ce44c2b2aa0ca7313a18b8": "https://es.wikiloc.com/wikiloc/map.do?sw=-89.9993166%2C-179.999&ne=89.999%2C179.999&q=La%20Faiada&fitMapToTrails=1&page=1"
+    }
+  ]
+}

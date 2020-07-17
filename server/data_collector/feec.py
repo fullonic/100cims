@@ -6,6 +6,7 @@ import bs4
 import json
 from uuid import uuid4
 from server.schemas import Cim
+from collections import ChainMap
 
 ESSENTIAL_PATTERN = r"var cims_essencials = \[(.*?)\]"
 REPTE_PATTERN = r"var cims_repte = \[(.*?)\]"
@@ -182,3 +183,11 @@ class CimsList:
         with open(cims_db) as f:
             cims = json.load(f)
         return [*cims["essential"], *cims["repte"]]
+
+    @staticmethod
+    def as_dict() -> dict:
+        """Return all cims from database."""
+        cims_db = Path(__file__).parent / "key_cims.json"
+        with open(cims_db) as f:
+            return json.load(f)
+        # return cims

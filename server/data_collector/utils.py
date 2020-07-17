@@ -1,21 +1,23 @@
-import random
-import json
-from pathlib import Path
+"""General scrapers utility set."""
+
+import asyncio
+from queue import Queue
 from typing import List
 from time import sleep
-from dataclasses import dataclass
 import bs4
-from bs4.element import Tag, ResultSet
+from bs4.element import ResultSet, Tag
+from fake_useragent import UserAgent
 from selenium import webdriver
 from selenium.common.exceptions import (
     ElementClickInterceptedException,
     NoSuchElementException,
 )
 from selenium.webdriver.firefox.options import Options
-from fake_useragent import UserAgent
+
+from server.data_collector.feec import CimsList
 
 from server.schemas import Cim
-from server.data_collector.feec import CimsList
+from server.app import db
 
 #########################
 # Configurations
@@ -38,16 +40,13 @@ def search_cim(driver: webdriver, keyword: str) -> None:
     search.send_keys(cim_name)
     search.click()
     try:
-        btn_select_first = driver.find_element_by_class_name(
-            "search-box-item__first"
-        )
+        btn_select_first = driver.find_element_by_class_name("search-box-item__first")
         btn_select_first.click()
         return True
     except ElementClickInterceptedException:
         # TODO: handle possible error here and logging
         print("ERROR")
         return False
-
 
 
 def accept_cookie(driver: webdriver) -> None:
@@ -80,11 +79,21 @@ def _get_treks(routes_list: List[str], type_: str = "/rutas-senderismo") -> List
 
 
 def get_cim_routes_list(cim_uuid, page, tag):
-    """Get cim route list from wikiloc page."""
+    """Get cim route list from wikiloc html page tag."""
     routes_list_tag = _filter_by_html_tag(page, tag)
     routes_list = select_routes_from_list(routes_list_tag)
     trekking_routes = _get_treks(routes_list)
     return {cim_uuid: {"trekking": trekking_routes}}
+
+
+def _retry_get_url(*args, times=3):
+    for _ in range(times):
+        url = _get_url_from_card(*args)
+        if url:
+            return url
+        else:
+            sleep(0.3)
+    return None
 
 
 def _get_url_from_card(idx: int, card: bs4.Tag) -> str:
@@ -93,19 +102,32 @@ def _get_url_from_card(idx: int, card: bs4.Tag) -> str:
     route_url_tag = card.select(
         f"div.trail:nth-child({idx}) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > a:nth-child(1)"  # noqa
     )
-    route_url = route_url_tag[0]["href"]
+    try:
+        route_url = route_url_tag[0]["href"]
+    except IndexError:
+        try:
+            route_url = card.select("div")[0].select("a")[0].attrs["href"]
+        except Exception as e:
+            print(e)
     return route_url
 
 
 def select_routes_from_list(routes_list: bs4.Tag):
     # route_html_card = routes_list.select("div.trail")
     routes_cards_tag = routes_list.select("div.trail")
-    return [
-        _get_url_from_card(idx + 1, card) for idx, card in enumerate(routes_cards_tag)
-    ]
+    routes_urls = []
+    for idx, card in enumerate(routes_cards_tag, start=1):
+        url = _get_url_from_card(idx, card)
+        if url is not None:
+            routes_urls.append(url)
+    return routes_urls
+    # return [
+    #     _get_url_from_card(idx, card)
+    #     for idx, card in enumerate(routes_cards_tag, start=1)
+    # ]
 
 
-def setup_browser(headless: bool = False):
+def setup_browser(headless: bool = False) -> webdriver:
     """Set up browser driver before start navigation.
 
     TODO:
@@ -124,38 +146,71 @@ def setup_browser(headless: bool = False):
     return driver
 
 
-def _save(new_update, name, mode="w"):
-    # open file
-    # fname = Path(__file__).parent / f"{name}.json"
-    with open(name, mode) as f:
-        f.write(new_update + "\n")
-    # save new data into file
-    # with open(fname, mode) as f:
-    #     current[name].append(new_update)
-    #     json.dump(current, f)
+def _list_cims(cims_list, n_cims=20):
+    """Divide list of cims in equal parts."""
+    for i in range(0, len(cims_list) + 1, n_cims):
+        yield cims_list[i : i + n_cims]
 
 
-def _collect_wikiloc_data(driver, cims_list):
-    search_urls = []
-    routes_list = []
-    for cim in cims_list:
-        search_cim(driver, cim["nombre"])
-        try:
-            btn_select_first = driver.find_element_by_class_name(
-                "search-box-item__first"
-            )
-        except ElementClickInterceptedException:
-            # TODO: handle possible error here
-            print("ERROR")
-        btn_select_first.click()
+def create_queue(cims_list: List[Cim], cims_per_task: int = 20):
+    queue = Queue()
+    for cims in _list_cims(cims_list, n_cims=cims_per_task):
+        queue.put(cims)
+    queue.put(None)
+    return queue
 
-        page = driver.page_source
 
-        # scrape list of routes
-        routes_list.append(get_cim_routes_list(cim["uuid"], page, ROUTES_TAG))
-        # breakpoint()
-        search_urls.append({cim["uuid"]: driver.current_url})
+async def wikiloc_browser(url, cims):
+    from server.data_collector.wikiloc import WikiLoc
 
-    # save new data into files
-    _save(routes_list, "routes_list.txt")
-    _save(search_urls, "search_urls.txt")
+    driver = setup_browser()  # blocking
+    wikiloc = WikiLoc(url)  # blocking
+    await asyncio.sleep(0.5)
+    cims_info = wikiloc.collect(driver, cims)  # blocking
+    db.add(cims_info)
+    driver.close()
+    print(f"Browser <{driver.session_id}> closed ")
+    return cims_info
+
+
+async def run_multiple(url: str, queue: Queue, cims_list=None):
+    # for cims in cims_list:
+    tasks = set()
+    task_ref = 1
+    while True:
+        cims = queue.get()
+        if cims is None:
+            break
+        await asyncio.sleep(0.5)
+        # asyncio.get_event_loop().run_in_executor(None, wikiloc_browser, url, cims)
+        task = asyncio.create_task(wikiloc_browser(url, cims), name=task_ref)
+        tasks.add(task)
+        task_ref += 1
+        # wikiloc_browser(url, cims)
+    while len(tasks):
+        done, _pending = await asyncio.wait(tasks, timeout=1)
+        tasks.difference_update(done)
+        urls = (t.get_name() for t in tasks)
+        print(f"Missing urls to be processed {' '.join(urls)}")
+
+    db.commit()
+    print("Everything commited into db")
+
+
+async def download_missing_cims(
+    BASE_URL, cims_with_routes, cims_list, missing_cims_info: list
+):
+    """TODO: Missing implementation."""
+    if len(cims_with_routes) != len(cims_list):
+        cim_routes = set(cims_with_routes.keys())
+        cims = set(cims_list)
+        missing = cims.difference(cim_routes)
+        download_cims = [cims_list[cim] for cim in missing]
+        if missing_cims_info is None:
+            missing_cims_info = await wikiloc_browser(BASE_URL, download_cims)
+        cims = db.add(missing_cims_info)
+        for k, v in cims.items():
+            # breakpoint()
+            cims_with_routes[k] = v
+        return cims_with_routes
+    return False
