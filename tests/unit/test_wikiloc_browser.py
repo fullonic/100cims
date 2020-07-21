@@ -115,7 +115,7 @@ def test_add_key_to_cims_list():
 @pytest.mark.asyncio
 async def test_download_missing_cims():
     """Check if there is missing routes urls for cims."""
-    base_path = "/home/somnium/Desktop/CODE/Projects/CV/100cims/server/data_collector"
+    base_path = "/home/somnium/Desktop/CODE/Projects/CV/100cims/cims_data"
     cims_with_routes: dict = open_file(f"{base_path}/routes_cims.json", "json")
     cims_list: dict = open_file(f"{base_path}/key_cims.json", "json")
     cims_info = open_file("./tests/testing_html_pages/cims_info.json", "json")

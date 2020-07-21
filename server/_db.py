@@ -50,5 +50,11 @@ class DataBase:
             json.dump(self.updated_cims, f)
         print(f"Commit {len(self.updated_cims)} cims into json file")
 
+    def get_all(self):
+        """Get all cims from in memory database."""
+        with open(".data_collector/completed_cims.json") as f:
+            self.data = json.load(f)
+        return self.data
+
 
 RAMDB = DataBase()

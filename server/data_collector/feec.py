@@ -179,7 +179,7 @@ class CimsList:
     @staticmethod
     def get_all() -> list:
         """Return all cims from database."""
-        cims_db = Path(__file__).parent / "cims.json"
+        cims_db = Path(__file__).parent.parent.parent / "cims_data/cims.json"
         with open(cims_db) as f:
             cims = json.load(f)
         return [*cims["essential"], *cims["repte"]]
@@ -187,7 +187,7 @@ class CimsList:
     @staticmethod
     def as_dict() -> dict:
         """Return all cims from database."""
-        cims_db = Path(__file__).parent / "key_cims.json"
+        cims_db = Path(__file__).parent / "cims_db.json"
         with open(cims_db) as f:
             return json.load(f)
         # return cims
