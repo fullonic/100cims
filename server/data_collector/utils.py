@@ -2,7 +2,7 @@
 
 import asyncio
 from queue import Queue
-from typing import List
+from typing import List, Dict, Union
 from time import sleep
 import bs4
 from bs4.element import ResultSet, Tag
@@ -216,8 +216,30 @@ async def download_missing_cims(
     return False
 
 
-def to_geojson(data: List[Cim]):
+def to_geojson(data: Union[List[Cim], Dict[str, List[Cim]]]):
     """Convert a list of cims to a geojson data format."""
+
+    def _generate(cim_type):
+        cim: Cim
+
+        return {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": cim.nombre,
+                        "alt": cim.alt,
+                        "essential": cim.essential,
+                    },
+                    "geometry": {"type": "Point", "coordinates": [cim.lang, cim.lat]},
+                }
+                for cim in data[cim_type]
+            ],
+        }
+
+    if isinstance(data, dict):
+        return {"essentials": _generate("essentials"), "repte": _generate("repte")}
     cim: Cim
     return {
         "type": "FeatureCollection",
