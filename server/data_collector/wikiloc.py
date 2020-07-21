@@ -45,32 +45,3 @@ class WikiLoc:
                 # breakpoint()
                 self.search_urls.append({cim["uuid"]: driver.current_url})
         return {"routes": self.routes_list, "search_urls": self.search_urls}
-
-
-def _loop(workers: int = 4, debug: bool = False) -> asyncio.Event:
-    loop = asyncio.get_event_loop()
-    loop.set_default_executor(ThreadPoolExecutor(max_workers=workers))
-    if debug:
-        loop.set_debug(True)
-    return loop
-
-
-def run_multiple_browsers(workers_browsers=4, cims_per_task=20):
-    loop = _loop(4, True)
-    cims_list = CimsList.get_all()
-    queue = create_queue(cims_list, cims_per_task)
-    BASE_URL = "https://es.wikiloc.com/"
-
-    loop.run_until_complete(run_multiple(BASE_URL, queue))
-
-
-if __name__ == "__main__":
-    """Run standallone wikiloc browser collector.
-
-    Mainly for testing
-    """
-    driver = setup_browser()
-    cims_lst = CimsList.get_all()[:3]
-    url = "https://es.wikiloc.com/"
-    wikiloc = WikiLoc(url)
-    wikiloc.collect(driver, cims_lst)

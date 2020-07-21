@@ -214,3 +214,23 @@ async def download_missing_cims(
             cims_with_routes[k] = v
         return cims_with_routes
     return False
+
+
+def to_geojson(data: List[Cim]):
+    """Convert a list of cims to a geojson data format."""
+    cim: Cim
+    return {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                    "name": cim.nombre,
+                    "alt": cim.alt,
+                    "essential": cim.essential,
+                },
+                "geometry": {"type": "Point", "coordinates": [cim.lang, cim.lat],},
+            }
+            for cim in data
+        ],
+    }

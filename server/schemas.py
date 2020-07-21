@@ -27,12 +27,19 @@ class Cim(BaseModel):
 
     id: int
     uuid: str
-    name: str
-    comarca: str
+    nombre: str
+    region: str
     lat: float
-    lng: float
+    lang: float
     alt: int
     essential: bool
     url: str
     img_url: str
-    routes: List[Route]
+    routes: list
+    # routes: List[Route]
+
+
+class CimsList(BaseModel):
+    """List of cims obj schema."""
+
+    cims: List[Cim]

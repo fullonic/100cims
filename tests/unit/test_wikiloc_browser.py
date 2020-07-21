@@ -8,6 +8,7 @@ from functools import lru_cache
 import pytest  # type: ignore
 
 from server.data_collector.feec import CimsList
+from server.schemas import Cim
 
 # from server.tasks import wikiloc_collect
 from server.data_collector.utils import (
@@ -22,6 +23,8 @@ from server.data_collector.utils import (
     select_routes_from_list,
     setup_browser,
 )
+
+from server.app import db
 
 
 @lru_cache
