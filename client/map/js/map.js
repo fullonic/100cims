@@ -359,15 +359,25 @@ var essentialMarker = L.AwesomeMarkers.icon({
 var clusterOptions = {
   disableClusteringAtZoom: 10,
   zoomToBoundsOnClick: true,
-  spiderLegPolylineOptions: { weight: 1.5, color: '#000', opacity: 0.5 },
+  spiderLegPolylineOptions: { weight: 1.5, color: "#000", opacity: 0.5 },
 };
 
+function createPopup(data) {
+  return `<div><b>${data.name}</b><br><span>Altitude: ${data.alt} </span></div>`
+}
+
+function onEachFeature(feature, layer) {
+  if (feature.properties) {
+    layer.bindPopup(createPopup(feature.properties));
+  }
+}
 // Essential CIMS Layers
 var essential_layer = L.markerClusterGroup(clusterOptions);
 var essential_geojson = L.geoJSON([], {
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: essentialMarker });
   },
+  onEachFeature: onEachFeature,
 });
 // Repte CIMS Layers
 var repte_layer = L.markerClusterGroup(clusterOptions);
@@ -375,6 +385,7 @@ var repte_geojson = L.geoJSON([], {
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: repteMarker });
   },
+  onEachFeature: onEachFeature
 });
 
 var overlayMaps = {
